@@ -110,7 +110,7 @@ def Get_sentiment(Review, path="model", Model=BertTokenizer.from_pretrained("mod
     return pred_labels
 
 def make_predictions(reviews, model = TFBertForSequenceClassification.from_pretrained("models" + '/Model'), tokenizer = BertTokenizer.from_pretrained("models" + '/Tokenizer')):
-
+    
     reviews = reviews.apply(text_cleaning)
 
     max_len = 128

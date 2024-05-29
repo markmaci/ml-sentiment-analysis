@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.14)  28 MAY 2024 13:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.2.14)  29 MAY 2024 13:02
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -485,28 +485,45 @@ l.76
  (./_minted-report/default.pygstyle) (./_minted-report/3E874D8D1BA8776FF93085E3E228803323CF86EF6392372B69DB28AB6578D4A6.pygtex
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 2.
-) [3]
+ [3])
 \openout3 = `report.pyg'.
 
- (./_minted-report/1CA000616A5FB667E7088CA1B1A1A73A23CF86EF6392372B69DB28AB6578D4A6.pygtex) (./report.bbl) [4] [5] (./report.aux)
+ (./_minted-report/1CA000616A5FB667E7088CA1B1A1A73A23CF86EF6392372B69DB28AB6578D4A6.pygtex)
+<svm_50epoch_tfidf.png, id=116, 388.8126pt x 328.8285pt>
+File: svm_50epoch_tfidf.png Graphic file (type png)
+<use svm_50epoch_tfidf.png>
+Package pdftex.def Info: svm_50epoch_tfidf.png  used on input line 174.
+(pdftex.def)             Requested size: 271.7835pt x 229.8673pt.
+ [4]
+<WhatsApp Image 2024-05-29 at 02.36.54 (1).jpeg, id=125, 672.5125pt x 549.05125pt>
+File: WhatsApp Image 2024-05-29 at 02.36.54 (1).jpeg Graphic file (type jpg)
+<use WhatsApp Image 2024-05-29 at 02.36.54 (1).jpeg>
+Package pdftex.def Info: WhatsApp Image 2024-05-29 at 02.36.54 (1).jpeg  used on input line 184.
+(pdftex.def)             Requested size: 271.7835pt x 221.887pt.
+<WhatsApp Image 2024-05-29 at 02.37.14.jpeg, id=126, 1169.36874pt x 471.7625pt>
+File: WhatsApp Image 2024-05-29 at 02.37.14.jpeg Graphic file (type jpg)
+<use WhatsApp Image 2024-05-29 at 02.37.14.jpeg>
+Package pdftex.def Info: WhatsApp Image 2024-05-29 at 02.37.14.jpeg  used on input line 191.
+(pdftex.def)             Requested size: 362.37569pt x 146.19446pt.
+ [5 <./svm_50epoch_tfidf.png> <./WhatsApp Image 2024-05-29 at 02.36.54 (1).jpeg>] (./report.bbl) [6 <./WhatsApp Image 2024-05-29 at 02.37.14.jpeg>] (./report.aux)
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 1A49C41AC09D27BC557F172B5E616C65;2957.
+(rerunfilecheck)             Checksum: B74778B58D06CA3CBF6B281AC4EDE9ED;2952.
 runsystem(rm report.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 13065 strings out of 478268
- 221531 string characters out of 5846347
- 568575 words of memory out of 5000000
- 31062 multiletter control sequences out of 15000+600000
+ 13099 strings out of 478268
+ 222570 string characters out of 5846347
+ 567796 words of memory out of 5000000
+ 31086 multiletter control sequences out of 15000+600000
  476091 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,10n,67p,810b,465s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 61i,10n,67p,810b,690s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on report.pdf (6 pages, 150995 bytes).
+Output written on report.pdf (7 pages, 258351 bytes).
 PDF statistics:
- 185 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
- 29 named destinations out of 1000 (max. 500000)
- 145 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 203 PDF objects out of 1000 (max. 8388607)
+ 164 compressed objects within 2 object streams
+ 34 named destinations out of 1000 (max. 500000)
+ 160 words of extra memory for PDF output out of 10000 (max. 10000000)
 

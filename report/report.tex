@@ -104,7 +104,7 @@ Various feature extraction techniques are employed to convert the raw text data 
 \end{itemize}
 
 \subsection{Support Vector Machine (SVM)}
-SVM is a supervised learning model used for classification tasks. It works by finding the hyperplane that best separates the classes in the feature space.
+SVM is a supervised learning model used for classification tasks. It works by finding the hyperplane that best separates the classes in the feature space. Rather than using a prewritten model from a library, we implement the SVM model from scratch to gain a deeper understanding of its inner workings. The SVM model is trained using the features extracted from the tweet dataset and evaluated based on performance metrics such as accuracy, precision, recall, and F1-score.
 
 \subsubsection{Mathematical Formulation}
 The SVM optimization problem can be formulated as follows:
@@ -144,21 +144,73 @@ def hingeloss(self, w, b, X, Y):
         return loss
 \end{minted}
 
-The training process uses gradient descent with batch processing. The hyperparameters are set as follows: $C=1.0$, learning rate $=0.001$, epochs $=1000$, batch size $=100$.
+The training process uses gradient descent with batch processing. The hyperparameters are set as follows: $C=1.0$, learning rate $=0.001$, epochs $=50$, batch size $=100$.
 
 \section{Experimental Results}
 
-\subsection{Training and Validation}
-The SVM model was trained on the preprocessed tweet dataset. The performance metrics used for evaluation include accuracy, precision, recall, and F1-score.
+\subsection{SVM Model Performance}
+The SVM model is trained using TF-IDF and lemmatization features. The model is evaluated on the test set using metrics such as accuracy, precision, recall, and F1-score. The results are visualized in Figure \ref{fig:accuracy} and summarized in Table \ref{tab:classification_report}
 
-\subsection{Results and Analysis}
-The results show the comparison of performance between TF-IDF and GloVe features. The SVM model's effectiveness in tweet sentiment classification is discussed.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcccc}
+    \hline
+    Class & Precision & Recall & F1-Score & Support \\
+    \hline
+    -1 & 0.74 & 0.86 & 0.80 & 159494 \\
+    1 & 0.84 & 0.69 & 0.76 & 160506 \\
+    \hline
+    Accuracy & \multicolumn{4}{c}{0.77931875} \\
+    Macro Avg & 0.79 & 0.78 & 0.78 & 320000 \\
+    Weighted Avg & 0.79 & 0.78 & 0.78 & 320000 \\
+    \hline
+    \end{tabular}
+    \caption{Classification Report for SVM Model}
+    \label{tab:classification_report}
+    \end{table}
 
 \begin{figure}[H]
-\centering
-\caption{Accuracy of SVM with TF-IDF and GloVe features}
-\label{fig:accuracy}
+    \centering
+    \includegraphics[width=0.6\textwidth]{svm_50epoch_tfidf.png}
+    \caption{Confusion Matrix for SVM Model}
+    \label{fig:accuracy}
 \end{figure}
+
+\subsection{CNN Model Performance}
+The CNN model is trained using only tokenization and lemmatization features. The model's performance is evaluated on the test set, and the results are visualized in the following figures.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{WhatsApp Image 2024-05-29 at 02.36.54 (1).jpeg}
+    \caption{Confusion Matrix for CNN Model}
+    \label{fig:cnn_confusion_matrix}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{WhatsApp Image 2024-05-29 at 02.37.14.jpeg}
+    \caption{Training and Validation Accuracy/Loss for CNN Model}
+    \label{fig:cnn_training_validation}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcccc}
+    \hline
+    Class & Precision & Recall & F1-Score & Support \\
+    \hline
+    0 & 0.76 & 0.71 & 0.73 & 159494 \\
+    1 & 0.73 & 0.77 & 0.75 & 160506 \\
+    \hline
+    Accuracy & \multicolumn{4}{c}{0.740409375} \\
+    Macro Avg & 0.74 & 0.74 & 0.74 & 320000 \\
+    Weighted Avg & 0.74 & 0.74 & 0.74 & 320000 \\
+    \hline
+    \end{tabular}
+    \caption{Classification Report for CNN Model}
+    \label{tab:cnn_classification_report}
+\end{table}
+
 
 \section{Discussion}
 The SVM model's performance is interpreted in the context of tweet sentiment classification. A brief comparison with CNN/RNN and BERT models is provided, highlighting the strengths and limitations of the SVM model.

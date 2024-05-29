@@ -35,18 +35,18 @@
     
     \vspace{0.5in}
     Cedric Bellens \\
-    \texttt{email} \\
-    id \\
+    \texttt{cedric.bellens@studbocconi.it} \\
+    3136486 \\
 
     \vspace{0.5in}
     Katarina Litricin \\
-    \texttt{email} \\
-    id \\
+    \texttt{katarina.litricin@studbocconi.it} \\
+    3162797 \\
     
     \vspace{0.5in}
     Anil Egin \\
-    \texttt{email} \\
-    id \\
+    \texttt{anil.egin@studbocconi.it} \\
+    3149068 \\
     
     \vfill
     \large
@@ -146,6 +146,98 @@ def hingeloss(self, w, b, X, Y):
 
 The training process uses gradient descent with batch processing. The hyperparameters are set as follows: $C=1.0$, learning rate $=0.001$, epochs $=50$, batch size $=100$.
 
+\subsection{CNN and RNN Models}
+Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs), specifically Bidirectional Long Short-Term Memory (BiLSTM) networks, are key architectures utilized in sentiment analysis. These models offer distinct advantages and challenges, leveraging different mechanisms to process and interpret text data.
+
+\subsubsection{CNN Model}
+CNNs are designed to capture local patterns (n-grams) within text data by applying convolutional filters that slide over the text, extracting features that are then pooled to reduce dimensionality and prevent overfitting. The typical architecture of a CNN for text includes embedding layers, convolutional layers, pooling layers, and fully connected layers.
+
+The convolution operation in CNNs can be mathematically represented as:
+\begin{equation}
+\text{Conv}(x, w) = \sum_{i=1}^{k} x[i] \cdot w[i]
+\end{equation}
+where \( x \) is the input text vector, \( w \) is the filter, and \( k \) is the filter size.
+
+The pooling operation, often max pooling, is used to reduce the dimensionality of the feature maps:
+\begin{equation}
+\text{MaxPool}(x) = \max_{i=1}^{k} x[i]
+\end{equation}
+
+For this study, two CNN models were implemented: one using tokenization and lemmatization, and another incorporating GloVe embeddings. Despite expectations that GloVe embeddings would enhance performance, the simpler model showed marginally better accuracy, suggesting the importance of parameter optimization for embeddings.
+
+\subsubsection{RNN Model}
+RNNs, particularly LSTM variants, are well-suited for sequential data and excel in capturing long-term dependencies within text. Bidirectional LSTMs (BiLSTM) enhance this by processing sequences in both forward and backward directions, providing a richer context for each token.
+
+The BiLSTM model operates as follows:
+\begin{equation}
+\overrightarrow{h_t} = \text{LSTM}(x_t, \overrightarrow{h_{t-1}})
+\end{equation}
+\begin{equation}
+\overleftarrow{h_t} = \text{LSTM}(x_t, \overleftarrow{h_{t+1}})
+\end{equation}
+where \( x_t \) is the input at time step \( t \), \( \overrightarrow{h_t} \) and \( \overleftarrow{h_t} \) are the forward and backward hidden states, respectively.
+
+The RNN model implemented for this study used a BiLSTM architecture with GloVe embeddings, allowing it to capture context from both past and future tokens. This comprehensive context understanding is particularly effective for sentiment analysis but comes with increased computational complexity and longer training times.
+
+\subsubsection{Comparison and Analysis}
+Both CNN and RNN models have their respective strengths and weaknesses:
+\begin{itemize}
+    \item \textbf{CNN Strengths:}
+    \begin{itemize}
+        \item Effective at capturing local patterns (n-grams) crucial for sentiment analysis.
+        \item Faster to train and computationally efficient compared to RNNs.
+        \item MaxPooling layers help reduce feature space and prevent overfitting.
+    \end{itemize}
+    \item \textbf{CNN Weaknesses:}
+    \begin{itemize}
+        \item May not capture long-term dependencies as effectively as RNNs.
+    \end{itemize}
+    \item \textbf{RNN (BiLSTM) Strengths:}
+    \begin{itemize}
+        \item Well-suited for sequential data, capturing long-term dependencies.
+        \item Bidirectional LSTMs enhance context understanding by processing sequences in both directions.
+    \end{itemize}
+    \item \textbf{RNN (BiLSTM) Weaknesses:}
+    \begin{itemize}
+        \item Slower to train compared to CNNs due to the complexity of processing sequential data.
+        \item Prone to overfitting, necessitating better regularization methods.
+    \end{itemize}
+\end{itemize}
+
+These models complement each other in the realm of sentiment analysis, with CNNs offering computational efficiency and RNNs (BiLSTMs) providing depth in contextual understanding.
+
+
+\subsection{BERT Model}
+The Bidirectional Encoder Representations from Transformers (BERT) model is a deep learning model introduced by \href{https://arxiv.org/abs/1810.04805}{Devlin et al. (2019)}. It has revolutionized NLP tasks by providing state-of-the-art performance across various benchmarks. BERT is designed to pre-train deep bidirectional representations by jointly conditioning on both left and right context in all layers, making it particularly effective for tasks such as sentiment analysis.
+
+BERT utilizes the transformer architecture, which relies on self-attention mechanisms to process and understand the context of words in a sentence. The model is pre-trained on a large corpus and can be fine-tuned for specific tasks, such as sentiment analysis, with relatively few task-specific parameters added. Additionally, BERT can be trained using its structure, which includes multiple layers of encoder stacks with bidirectional self-attention heads and numerous hidden units. We use this layered structure to train BERT models for various applications, leveraging their ability to deeply understand language context and nuances.
+
+\subsubsection{Attention Algorithm Structure}
+The self-attention mechanism in BERT allows the model to weigh the importance of different words in a sentence when encoding a particular word. This is crucial for capturing the nuanced sentiment expressed in tweets. The attention mechanism operates as follows:
+
+\begin{itemize}
+    \item \textbf{Input Representation}: Each token in the input sequence is first embedded into a fixed-size vector. These embeddings include positional encodings to retain the order of tokens.
+    \item \textbf{Scaled Dot-Product Attention}: For each token, three vectors are derived: Query (Q), Key (K), and Value (V). Attention scores are computed using the dot product of Q and K, scaled by the square root of the dimension of the key vectors.
+    \begin{equation}
+    \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V
+    \end{equation}
+    \item \textbf{Multi-Head Attention}: Multiple attention heads are used to allow the model to jointly attend to information from different representation subspaces at different positions. The outputs of these heads are concatenated and linearly transformed.
+    \begin{equation}
+    \text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \text{head}_2, \ldots, \text{head}_h)W^O
+    \end{equation}
+    where $\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$.
+    \item \textbf{Feed-Forward Neural Networks}: The output from the multi-head attention layer is passed through a position-wise feed-forward network.
+\end{itemize}
+
+This attention mechanism enables BERT to understand the context and sentiment of each token within the tweet effectively, leading to superior performance in sentiment classification tasks.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{WhatsApp Image 2024-05-29 at 14.31.19.jpeg}
+    \caption{BERT Attention Mechanism}
+    \label{fig:bert_attention}
+\end{figure}
+
 \section{Experimental Results}
 
 \subsection{SVM Model Performance}
@@ -211,19 +303,109 @@ The CNN model is trained using only tokenization and lemmatization features. The
     \label{tab:cnn_classification_report}
 \end{table}
 
+\subsection{CNN Model Performance with GloVe Embeddings}
+The CNN model incorporating GloVe embeddings was trained to enhance the representation of the text data. The model's performance was evaluated on the test set, and the results are summarized below.
 
-\section{Discussion}
-The SVM model's performance is interpreted in the context of tweet sentiment classification. A brief comparison with CNN/RNN and BERT models is provided, highlighting the strengths and limitations of the SVM model.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{WhatsApp Image 2024-05-29 at 02.38.06 (1).jpeg}
+    \caption{Confusion Matrix for CNN Model with GloVe Embeddings}
+    \label{fig:cnn_glove_confusion_matrix}
+\end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{WhatsApp Image 2024-05-29 at 02.38.06.jpeg}
+    \caption{Training and Validation Accuracy/Loss for CNN Model with GloVe Embeddings}
+    \label{fig:cnn_glove_training_validation}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcccc}
+    \hline
+    Class & Precision & Recall & F1-Score & Support \\
+    \hline
+    0 & 0.74 & 0.69 & 0.72 & 159494 \\
+    1 & 0.72 & 0.76 & 0.74 & 160506 \\
+    \hline
+    Accuracy & \multicolumn{4}{c}{0.7293} \\
+    Macro Avg & 0.73 & 0.73 & 0.73 & 320000 \\
+    Weighted Avg & 0.73 & 0.73 & 0.73 & 320000 \\
+    \hline
+    \end{tabular}
+    \caption{Classification Report for CNN Model with GloVe Embeddings}
+    \label{tab:cnn_glove_classification_report}
+\end{table}
+
+The CNN model with GloVe embeddings achieved an accuracy of 72.93\% on the test set. The confusion matrix (Figure \ref{fig:cnn_glove_confusion_matrix}) provides a visual representation of the true and predicted labels, indicating the model's performance in distinguishing between positive and negative sentiments. The training and validation accuracy/loss curves (Figure \ref{fig:cnn_glove_training_validation}) show the model's learning progression over epochs. The classification report (Table \ref{tab:cnn_glove_classification_report}) summarizes the precision, recall, F1-score, and support for each class, highlighting the model's effectiveness in sentiment classification tasks.
+
+
+\subsection{BERT Model Performance}
+The BERT model was trained on a subset of 15,000 tweets from the Sentiment140 dataset. This model leverages the transformer architecture to capture contextual information from both directions in the text, which is particularly effective for sentiment analysis. The performance of the BERT model on the test set is evaluated using precision, recall, F1-score, and support metrics.
+
+The results are summarized as follows:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcccc}
+    \hline
+    Class & Precision & Recall & F1-Score & Support \\
+    \hline
+    Negative & 0.81 & 0.80 & 0.81 & 1476 \\
+    Positive & 0.81 & 0.82 & 0.81 & 1524 \\
+    \hline
+    Accuracy & \multicolumn{4}{c}{0.81} \\
+    Macro Avg & 0.81 & 0.81 & 0.81 & 3000 \\
+    Weighted Avg & 0.81 & 0.81 & 0.81 & 3000 \\
+    \hline
+    \end{tabular}
+    \caption{Classification Report for BERT Model}
+    \label{tab:bert_classification_report}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{xyz.png}
+    \caption{Confusion Matrix for BERT Model}
+    \label{fig:bert_confusion_matrix}
+\end{figure}
+
+The confusion matrix for the BERT model, as shown in Figure \ref{fig:bert_confusion_matrix}, provides a visual representation of the true and predicted labels, indicating the model's performance in distinguishing between positive and negative sentiments.
+
+Additionally, we performed an analysis using a pre-trained BERT model available from Hugging Face, specifically the \texttt{MarieAngeA13/Sentiment-Analysis-BERT}. The performance metrics for this pre-trained model are as follows:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcccc}
+    \hline
+    Class & Precision & Recall & F1-Score & Support \\
+    \hline
+    Negative & 0.78 & 0.74 & 0.76 & 1476 \\
+    Positive & 0.76 & 0.80 & 0.78 & 1524 \\
+    \hline
+    Accuracy & \multicolumn{4}{c}{0.77} \\
+    Macro Avg & 0.77 & 0.77 & 0.77 & 3000 \\
+    Weighted Avg & 0.77 & 0.77 & 0.77 & 3000 \\
+    \hline
+    \end{tabular}
+    \caption{Classification Report for Pre-trained BERT Model}
+    \label{tab:pretrained_bert_classification_report}
+\end{table}
+
+The pre-trained model demonstrates slightly lower performance compared to our custom-trained BERT model, but still shows strong results, highlighting the effectiveness of transfer learning for sentiment analysis tasks.
 \section{Conclusion}
-The SVM model, when combined with TF-IDF and GloVe features, shows effective performance in tweet sentiment analysis. Future work could explore the use of more advanced embeddings and hyperparameter tuning to improve results.
+This study compared the performance of three different types of models for tweet sentiment analysis: Support Vector Machine (SVM), Convolutional Neural Networks (CNN) combined with Recurrent Neural Networks (RNN), and Bidirectional Encoder Representations from Transformers (BERT). Each model represents a distinct stage in the evolution of machine learning techniques, offering unique strengths and weaknesses in handling sentiment analysis tasks.
 
-\section*{References}
-\bibliographystyle{plain}
-\bibliography{references}
+The SVM model, combined with TF-IDF and GloVe embeddings, demonstrated effective performance in classifying tweet sentiments. The model achieved an accuracy of 77.93\%, with balanced precision, recall, and F1-scores for both positive and negative sentiment classes. SVMs are particularly adept at handling high-dimensional feature spaces typical of text data, and their performance in this study underscores their continued relevance for sentiment analysis tasks. However, the SVM model may struggle to capture complex patterns and contextual nuances that more advanced models can detect. Future work with SVM could involve exploring more sophisticated feature extraction techniques and hyperparameter tuning to further improve its performance.
 
-\appendix
-\section{Code Snippets}
-Additional code snippets and detailed tables can be found here.
+The CNN models in this study showed that while tokenization and lemmatization-based feature extraction can yield strong results, the integration of GloVe embeddings did not provide the anticipated performance boost. The simpler CNN model, which relied solely on tokenization and lemmatization, achieved a marginally better accuracy of 74\% compared to the 73\% accuracy of the GloVe-embedded model. This discrepancy suggests that the parameters of the GloVe embeddings might not have been optimally tuned for this specific task. Additionally, the longer training times for the GloVe model indicate challenges in efficiently fitting the data within the provided epochs. Despite these findings, CNNs remain valuable due to their ability to capture local patterns and their computational efficiency. Future research could focus on optimizing embedding parameters or exploring other advanced embeddings to enhance CNN performance.
+
+The RNN model, specifically the Bidirectional LSTM (BiLSTM) architecture, outperformed both CNN models, achieving an accuracy of 78\%. The BiLSTM's ability to capture long-term dependencies and contextual information from both past and future tokens contributed to its superior performance. This model effectively differentiated between positive and negative sentiments, leading to higher true positive and true negative counts and reducing misclassifications. However, the complexity of the LSTM layers resulted in significantly slower training times compared to CNNs. The trade-off between accuracy and computational efficiency is a critical consideration, and future work could explore ways to optimize LSTM training or combine RNNs with other techniques to balance performance and efficiency.
+
+The BERT model demonstrated the highest performance among the models tested, with an accuracy of 81\%. Both the custom-trained and pre-trained BERT models showcased BERT's ability to understand and process contextual information from tweets, capturing nuances that simpler models might miss. The advanced attention mechanisms and bidirectional context understanding of BERT provide significant advantages in sentiment analysis applications. Future work could involve fine-tuning BERT with additional data, experimenting with different pre-trained versions, and exploring hybrid approaches that combine traditional and deep learning models to further enhance sentiment analysis solutions.
+
+In conclusion, each model type offers unique advantages for tweet sentiment analysis. SVMs provide robust performance with simpler feature extraction techniques, CNNs offer computational efficiency and strong local pattern recognition, RNNs excel in capturing long-term dependencies, and BERT leads in overall performance due to its advanced contextual understanding. Future research should focus on optimizing these models and exploring hybrid approaches to leverage their strengths and mitigate their weaknesses, ultimately advancing the field of sentiment analysis.
+
 
 \end{document}
